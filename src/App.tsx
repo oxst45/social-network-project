@@ -1,26 +1,45 @@
 import React from 'react';
-import logo from './logo.svg';
+import {Header} from "./components/Header/Header";
+import {Navbar} from "./components/Navbar/Navbar";
+import {Profile} from "./components/Profile/Profile";
 import './App.css';
+import {Dialogs} from "./components/Dialogs/Dialogs";
+import {BrowserRouter, Router, Routes, Route, Link} from "react-router-dom";
+import {StateType} from "./redux/state";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+type AppPropsType = {
+    state: StateType
+    addPost: (postMessage: string) => void
+    updateNewPostText: (newText: string) => void
+}
+
+function App(props: AppPropsType) {
+    return (
+        <BrowserRouter>
+            <div className="app-wrapper">
+                <Header/>
+                <Navbar/>
+                <div className="app-wrapper-content">
+
+                    <Routes>
+
+                        <Route path="/profile/*"
+                               element={<Profile posts={props.state.profilePage.postsData}
+                                                 newPost = {props.state.profilePage.newPostText}
+                                                 addPost={props.addPost}
+                                                 updateNewPostText = {props.updateNewPostText}/>}/>
+                        <Route path="/dialogs/*"
+                               element={<Dialogs messages={props.state.messagePage.messagesData}
+                                                 dialogs={props.state.messagePage.dialogsData}/>}/>
+
+                    </Routes>
+
+                </div>
+
+            </div>
+        </BrowserRouter>
+    );
 }
 
 export default App;
+
