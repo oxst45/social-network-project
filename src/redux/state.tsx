@@ -1,60 +1,67 @@
-export let store = {
+export let store: StoreType = {
     _state: {
 
-    profilePage: {
-        postsData: [
-            {id: 1, message: 'Hello', likeCount: 12},
-            {id: 2, message: 'Good morning', likeCount: 11}
-        ],
-        newPostText: "just a string"
+        profilePage: {
+            postsData: [
+                {id: 1, message: 'Hello', likeCount: 12},
+                {id: 2, message: 'Good morning', likeCount: 11}
+            ],
+            newPostText: "just a string"
 
+        },
+        messagePage: {
+            dialogsData: [
+                {id: 1, name: 'Maria'},
+                {id: 2, name: 'Elena'}
+            ],
+            messagesData: [
+                {id: 1, message: 'Hello'},
+                {id: 2, message: 'How are you?'}
+            ]
+        },
+        sidebar: {}
     },
-    messagePage: {
-        dialogsData: [
-            {id: 1, name: 'Maria'},
-            {id: 2, name: 'Elena'}
-        ],
-        messagesData: [
-            {id: 1, message: 'Hello'},
-            {id: 2, message: 'How are you?'}
-        ]
+    _callSubscriber(state: StateType) {
     },
-    sidebar: {}
-},
-    getState () {
+
+    getState() {
         return this._state;
-},
-    _callSubscriber (state: StateType) {
     },
-
-     addPost (postMessage: string) {
-        const newPost: PostsDataType = {
-            id: 7,
-            message: postMessage,
-            likeCount: 0
-        }
-         this._state.profilePage.postsData.push(newPost);
-        this._callSubscriber(this._state);
-         this._state.profilePage.newPostText = "";
-    },
-     updateNewPostText (newText: string) {
-         this._state.profilePage.newPostText = newText;
-         this._callSubscriber(this._state);
-    },
-
-    subscribe (observer: ObserverType) {
+    subscribe(observer: ObserverType) {
         this._callSubscriber = observer;
-    }
-}
+    },
 
+
+    dispatch(action) {
+        if (action.type === "ADD-POST") {
+            const newPost: PostsDataType = {
+                id: 7,
+                message: this._state.profilePage.newPostText,
+                likeCount: 0
+            }
+            this._state.profilePage.postsData.push(newPost);
+            this._callSubscriber(this._state);
+            this._state.profilePage.newPostText = "";
+        } else if (action.type === "UPDATE-NEW-POST-TEXT") {
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber(this._state);
+        }
+    }
+
+}
+export type ObserverType = (state: StateType) => void
+export type ActionType = {
+    type: string
+    newText?: string
+}
 
 export type StoreType = {
     _state: StateType
     getState: () => StateType
-    allSubscriber: (state: StateType) => void
-        addPost: (postMessage: string) => void
-    updateNewPostText: (newText: string) => void
+    _callSubscriber: (state: StateType) => void
+
     subscribe: (observer: ObserverType) => void
+    dispatch: (action: ActionType) => void
 }
 
 export type StateType = {
@@ -65,7 +72,7 @@ export type StateType = {
 
 export type ProfilePageType = {
     postsData: Array<PostsDataType>
-    newPostText: string
+    newPostText: string | undefined
 }
 export type MessagePageType = {
     dialogsData: Array<dialogsDataType>
@@ -74,7 +81,7 @@ export type MessagePageType = {
 export type SidebarType = {}
 export type PostsDataType = {
     id: number
-    message: string
+    message: string | undefined
     likeCount: number
 }
 export type dialogsDataType = {
@@ -108,6 +115,6 @@ export type messagesDataType = {
 //     },
 //     sidebar: {}
 // }
-export type ObserverType = (state: StateType) => void
+
 
 

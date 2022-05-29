@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {store} from "./redux/state";
+import {store, StoreType} from "./redux/state";
 import {StateType} from "./redux/state";
 // import {rerenderEntireTree} from "./render";
 
@@ -11,11 +11,14 @@ const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
-
+// type rerenderEntireTreePropsType = {
+//     state: StateType
+//
+// }
 export let rerenderEntireTree = (state: StateType) => {
     root.render(
 
-        <App state={store.getState()} addPost={store.addPost.bind(store)} updateNewPostText={store.updateNewPostText.bind(store)}/>
+        <App state={store.getState()} dispatch={store.dispatch.bind(store)}/>
 
     );
 }
