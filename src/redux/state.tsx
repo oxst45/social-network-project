@@ -1,3 +1,6 @@
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+
 export let store: StoreType = {
     _state: {
 
@@ -33,7 +36,7 @@ export let store: StoreType = {
 
 
     dispatch(action) {
-        if (action.type === "ADD-POST") {
+        if (action.type === ADD_POST) {
             const newPost: PostsDataType = {
                 id: 7,
                 message: this._state.profilePage.newPostText,
@@ -42,7 +45,7 @@ export let store: StoreType = {
             this._state.profilePage.postsData.push(newPost);
             this._callSubscriber(this._state);
             this._state.profilePage.newPostText = "";
-        } else if (action.type === "UPDATE-NEW-POST-TEXT") {
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText;
             this._callSubscriber(this._state);
         }
@@ -51,13 +54,15 @@ export let store: StoreType = {
 }
 
 export const addPostActionCreator = () => {
+
     return {
-        type: "ADD-POST"
+        type: ADD_POST
     }
 }
 
 export const updateNewPostTextActionCreator = (text: string) => {
-    return {type: "UPDATE-NEW-POST-TEXT", newText: text}
+
+    return {type: UPDATE_NEW_POST_TEXT, newText: text}
 }
 
 export type ObserverType = (state: StateType) => void
