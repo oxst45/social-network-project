@@ -1,6 +1,7 @@
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-
+const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
+const SEND_MESSAGE = "SEND-MESSAGE"
 export let store: StoreType = {
     _state: {
 
@@ -20,7 +21,8 @@ export let store: StoreType = {
             messagesData: [
                 {id: 1, message: 'Hello'},
                 {id: 2, message: 'How are you?'}
-            ]
+            ],
+            newMessageText: "",
         },
         sidebar: {}
     },
@@ -47,28 +49,40 @@ export let store: StoreType = {
             this._state.profilePage.newPostText = "";
         } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText;
+
+            this._callSubscriber(this._state);
+        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
+            this._state.messagePage.newMessageText = action.body;
+            console.log(action.body)
+
+            this._callSubscriber(this._state);
+        } else if (action.type === SEND_MESSAGE) {
+
+            let body = this._state.messagePage.newMessageText;
+
+            this._state.messagePage.newMessageText = "";
+            this._state.messagePage.messagesData.push({id: 12, message: body});
             this._callSubscriber(this._state);
         }
     }
 
 }
 
-export const addPostActionCreator = () => {
+export const addPostActionCreator = () => ({type: ADD_POST})
 
-    return {
-        type: ADD_POST
-    }
-}
-
-export const updateNewPostTextActionCreator = (text: string) => {
-
-    return {type: UPDATE_NEW_POST_TEXT, newText: text}
+export const updateNewPostTextActionCreator = (text: string) =>
+    ({type: UPDATE_NEW_POST_TEXT, newText: text})
+export const sendMessageActionCreator = () => ({type: SEND_MESSAGE})
+export const updateNewMessageTextActionCreator = (body: string) => {
+   return  {type: UPDATE_NEW_MESSAGE_TEXT, body: body}
 }
 
 export type ObserverType = (state: StateType) => void
+
 export type ActionType = {
     type: string
     newText?: string
+    body?: string
 }
 
 export type StoreType = {
@@ -93,6 +107,7 @@ export type ProfilePageType = {
 export type MessagePageType = {
     dialogsData: Array<dialogsDataType>
     messagesData: Array<messagesDataType>
+    newMessageText: string | undefined
 }
 export type SidebarType = {}
 export type PostsDataType = {
@@ -106,7 +121,7 @@ export type dialogsDataType = {
 }
 export type messagesDataType = {
     id: number
-    message: string
+    message: string | undefined
 }
 
 // export const state: StateType = {
