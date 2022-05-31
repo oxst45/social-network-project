@@ -6,20 +6,18 @@ import {sendMessageActionCreator, updateNewMessageTextActionCreator} from "../..
 
 
 export function Dialogs(props: any) {
-    let state = props.store.getState().messagePage;
+    let state = props.messagePage;
 
     let dialogsElements = state.dialogsData.map((dialog: any) => <DialogItem name={dialog.name} id={dialog.id}/>);
     let messagesElements = state.messagesData.map((message: any) => <Message message={message.message} id={message.id}/>);
     const messageBody = state.newMessageText;
 
     const onSendMessageClickHandler = () => {
-        props.store.dispatch(sendMessageActionCreator());
+        props.sendMessage();
     }
     const onNewMessageChange = (e: ChangeEvent<HTMLInputElement>) => {
         let body = e.target.value.toString();
-        console.log();
-
-        props.store.dispatch( updateNewMessageTextActionCreator(body) );
+        props.updateNewMessageText(body);
     }
 
     return (

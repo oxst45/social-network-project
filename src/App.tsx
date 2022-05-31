@@ -6,6 +6,7 @@ import './App.css';
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Router, Routes, Route, Link} from "react-router-dom";
 import {ActionType, StateType, store, StoreType} from "./redux/state";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 type AppPropsType = {
     state: StateType
@@ -30,9 +31,7 @@ function App(props: AppPropsType) {
 
                                                  />}/>
                         <Route path="/dialogs/*"
-                               element={<Dialogs messages={props.state.messagePage.messagesData}
-                                                 dialogs={props.state.messagePage.dialogsData}
-                                                 store={props.store}
+                               element={<DialogsContainer store={props.store}
                                />}/>
 
                     </Routes>
