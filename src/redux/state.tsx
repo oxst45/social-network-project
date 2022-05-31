@@ -1,7 +1,12 @@
+import {ProfileReducer} from "./profile-reducer";
+import {DialogsReducer} from "./dialogs-reducer";
+import {SidebarReducer} from "./sidebar-reducer";
+
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
 const SEND_MESSAGE = "SEND-MESSAGE"
+
 export let store: StoreType = {
     _state: {
 
@@ -24,8 +29,9 @@ export let store: StoreType = {
             ],
             newMessageText: "",
         },
-        sidebar: {}
+        sidebarPage: {}
     },
+
     _callSubscriber(state: StateType) {
     },
 
@@ -38,6 +44,13 @@ export let store: StoreType = {
 
 
     dispatch(action) {
+
+        this._state.profilePage = ProfileReducer(this._state.profilePage, action);
+        this._state.messagePage = DialogsReducer(this._state.messagePage, action);
+        this._state.sidebarPage = SidebarReducer(this._state.sidebarPage, action);
+
+        this._callSubscriber(this._state);
+
         if (action.type === ADD_POST) {
             const newPost: PostsDataType = {
                 id: 7,
@@ -97,7 +110,7 @@ export type StoreType = {
 export type StateType = {
     profilePage: ProfilePageType
     messagePage: MessagePageType
-    sidebar: SidebarType
+    sidebarPage: SidebarType
 }
 
 export type ProfilePageType = {
