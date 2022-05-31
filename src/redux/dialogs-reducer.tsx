@@ -4,7 +4,19 @@ import {ActionType, MessagePageType, PostsDataType, StateType} from "./state";
 const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
 const SEND_MESSAGE = "SEND-MESSAGE"
 
-export function DialogsReducer(state: MessagePageType, action: ActionType) {
+const initialState = {
+    dialogsData: [
+        {id: 1, name: 'Maria'},
+        {id: 2, name: 'Elena'}
+    ],
+    messagesData: [
+        {id: 1, message: 'Hello'},
+        {id: 2, message: 'How are you?'}
+    ],
+    newMessageText: "",
+}
+
+export function DialogsReducer(state: MessagePageType = initialState, action: ActionType) {
     if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
         state.newMessageText = action.body;
 

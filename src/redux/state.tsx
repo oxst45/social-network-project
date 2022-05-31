@@ -2,10 +2,10 @@ import {ProfileReducer} from "./profile-reducer";
 import {DialogsReducer} from "./dialogs-reducer";
 import {SidebarReducer} from "./sidebar-reducer";
 
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
-const SEND_MESSAGE = "SEND-MESSAGE"
+// const ADD_POST = "ADD-POST";
+// const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+// const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
+// const SEND_MESSAGE = "SEND-MESSAGE"
 
 export let store: StoreType = {
     _state: {
@@ -51,32 +51,7 @@ export let store: StoreType = {
 
         this._callSubscriber(this._state);
 
-        if (action.type === ADD_POST) {
-            const newPost: PostsDataType = {
-                id: 7,
-                message: this._state.profilePage.newPostText,
-                likeCount: 0
-            }
-            this._state.profilePage.postsData.push(newPost);
-            this._callSubscriber(this._state);
-            this._state.profilePage.newPostText = "";
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.newPostText = action.newText;
 
-            this._callSubscriber(this._state);
-        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-            this._state.messagePage.newMessageText = action.body;
-            console.log(action.body)
-
-            this._callSubscriber(this._state);
-        } else if (action.type === SEND_MESSAGE) {
-
-            let body = this._state.messagePage.newMessageText;
-
-            this._state.messagePage.newMessageText = "";
-            this._state.messagePage.messagesData.push({id: 12, message: body});
-            this._callSubscriber(this._state);
-        }
     }
 
 }
@@ -85,13 +60,7 @@ export let store: StoreType = {
 
 
 
-export type ObserverType = (state: StateType) => void
 
-export type ActionType = {
-    type: string
-    newText?: string
-    body?: string
-}
 
 export type StoreType = {
     _state: StateType
@@ -130,6 +99,14 @@ export type dialogsDataType = {
 export type messagesDataType = {
     id: number
     message: string | undefined
+}
+
+export type ObserverType = (state: StateType) => void
+
+export type ActionType = {
+    type: string
+    newText?: string
+    body?: string
 }
 
 // export const state: StateType = {
