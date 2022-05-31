@@ -12,14 +12,15 @@ export function MyPosts(props: any) {
     // let newPostElement = useRef(null);
     // // @ts-ignore
     // let text = newPostElement.current.value;
-    let addPost = () => {
+    let onAddPostHandler = () => {
+        props.addPost();
 
-        props.dispatch(addPostActionCreator());
     }
 
     const onChangePostHandler = (event: ChangeEvent<HTMLInputElement>) => {
         let text = event.target.value;
-        props.dispatch(updateNewPostTextActionCreator(text));
+        props.updateNewPostText(text);
+
     }
     return (
         <div className={s.postsBlock}>
@@ -28,7 +29,7 @@ export function MyPosts(props: any) {
                 <input type="text" value={props.newPostText} onChange={onChangePostHandler}/>
                 </div>
                 <div>
-                <button onClick={addPost}>Add post</button>
+                <button onClick={onAddPostHandler}>Add post</button>
                 </div>
                 <div>
                 <button>Remove</button>

@@ -26,9 +26,7 @@ function App(props: AppPropsType) {
                     <Routes>
 
                         <Route path="/profile/*"
-                               element={<Profile posts={props.state.profilePage.postsData}
-                                                 newPost = {props.state.profilePage.newPostText}
-                                                 dispatch={props.dispatch}
+                               element={<Profile store={props.store}
 
                                                  />}/>
                         <Route path="/dialogs/*"
