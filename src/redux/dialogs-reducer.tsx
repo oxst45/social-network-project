@@ -20,3 +20,9 @@ export function DialogsReducer(state: MessagePageType, action: ActionType) {
 
 }
 
+
+
+export const sendMessageActionCreator = () => ({type: SEND_MESSAGE})
+export const updateNewMessageTextActionCreator = (body: string) => {
+    return  {type: UPDATE_NEW_MESSAGE_TEXT, body: body}
+}

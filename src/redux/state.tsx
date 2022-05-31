@@ -81,14 +81,9 @@ export let store: StoreType = {
 
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST})
 
-export const updateNewPostTextActionCreator = (text: string) =>
-    ({type: UPDATE_NEW_POST_TEXT, newText: text})
-export const sendMessageActionCreator = () => ({type: SEND_MESSAGE})
-export const updateNewMessageTextActionCreator = (body: string) => {
-   return  {type: UPDATE_NEW_MESSAGE_TEXT, body: body}
-}
+
+
 
 export type ObserverType = (state: StateType) => void
 
