@@ -44,5 +44,5 @@ const mapDispatchToProps = (dispatch: MapDispatchToPropsType) => {
         },
     }
 }
-export const SuperDialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 
