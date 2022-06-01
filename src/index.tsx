@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {store, ReduxStoreType} from "./redux/redux-store";
 import {StateType} from "./redux/state";
+import {BrowserRouter} from "react-router-dom";
+import {Provider} from "react-redux";
 // import {rerenderEntireTree} from "./render";
 
 const root = ReactDOM.createRoot(
@@ -17,9 +19,11 @@ const root = ReactDOM.createRoot(
 // }
 export let rerenderEntireTree = (state: StateType) => {
     root.render(
-
+<BrowserRouter>
+    <Provider store={store}>
         <App state={store.getState()} dispatch={store.dispatch.bind(store)} store={store}/>
-
+    </Provider>
+    </BrowserRouter>
     );
 }
 rerenderEntireTree(store.getState());

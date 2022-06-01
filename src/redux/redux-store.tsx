@@ -11,7 +11,7 @@ export const reducers = combineReducers({
     SidebarPage: SidebarReducer
 })
 
-export const store: ReduxStoreType = createStore(reducers);
+export const store: any = createStore(reducers);
 
 export type ReduxStoreType = {
     _state: StateType
@@ -20,6 +20,8 @@ export type ReduxStoreType = {
 
     subscribe: (observer: ObserverType) => void
     dispatch: (action: ActionType) => void
+    // replaceReduce: any
+    // [Symbol.observable]: any
 }
 
 export type StoreType = {
