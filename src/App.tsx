@@ -13,7 +13,7 @@ type AppPropsType = {
     // addPost: (postMessage: string) => void
     // updateNewPostText: (newText: string) => void
     dispatch: (action: ActionType) => void
-    store: StoreType
+    store: any
 }
 
 function App(props: AppPropsType) {

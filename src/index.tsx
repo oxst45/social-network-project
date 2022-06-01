@@ -19,11 +19,11 @@ const root = ReactDOM.createRoot(
 // }
 export let rerenderEntireTree = (state: StateType) => {
     root.render(
-<BrowserRouter>
+// <BrowserRouter>
     <Provider store={store}>
         <App state={store.getState()} dispatch={store.dispatch.bind(store)} store={store}/>
     </Provider>
-    </BrowserRouter>
+    // </BrowserRouter>
     );
 }
 rerenderEntireTree(store.getState());
