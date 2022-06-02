@@ -12,6 +12,8 @@ export const reducers = combineReducers({
 })
 
 export const store: any = createStore(reducers);
+// @ts-ignore
+window.store = store;
 
 export type ReduxStoreType = {
     _state: StateType
