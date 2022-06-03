@@ -17,15 +17,26 @@ const initialState = {
 }
 
 export function DialogsReducer(state: MessagePageType = initialState, action: ActionType) {
+    let stateCopy;
+
     if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-        state.newMessageText = action.body;
+        stateCopy = {
+            ...state,
+            newMessageText: action.body
+        };
+
+        return stateCopy;
 
     } else if (action.type === SEND_MESSAGE) {
-
         let body = state.newMessageText;
+        stateCopy = {
+            ...state,
+            newMessageText: "",
+            messages: [...state.messagesData, {id: 17, message: body}]
+        };
 
-        state.newMessageText = "";
-        state.messagesData.push({id: 12, message: body});
+
+        return stateCopy;
 
     }
     return state;

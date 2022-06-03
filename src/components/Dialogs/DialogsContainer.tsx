@@ -36,10 +36,10 @@ const mapStateToProps = (state: StateType) => {
 type MapDispatchToPropsType = (ActionCreator: { type: string }) => {}
 const mapDispatchToProps = (dispatch: MapDispatchToPropsType) => {
     return {
-        updateNewMessageText: () => {
+        sendMessage: () => {
              dispatch(sendMessageActionCreator());
         },
-        sendMessage: (body: string) => {
+        updateNewMessageText: (body: string) => {
           dispatch(updateNewMessageTextActionCreator(body));
         },
     }
